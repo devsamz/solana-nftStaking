@@ -27,13 +27,11 @@ pub mod nft_staking {
         super::*,
     };
 
-    // Initialize the mint
     pub fn initialize_mint(ctx: Context<InitializeMint>) -> Result<()> {
         msg!("Created token {}", ctx.accounts.token_mint.key());
         Ok(())
     }
 
-    // Create and mint NFT
     pub fn create_nft(ctx: Context<CreateNFT>, name: String, symbol: String, uri: String) -> Result<()> {
         // Define NFT creators
         let creators = Some(vec![
@@ -64,7 +62,6 @@ pub mod nft_staking {
             None
         );
 
-        // Submit the instruction
         invoke(
             &create_metadata_instruction, 
             &[
@@ -90,7 +87,6 @@ pub mod nft_staking {
             Some(1)
         );
 
-        // Submit the instruction
         invoke(
             &create_master_edition_ix, 
             &[
@@ -105,7 +101,6 @@ pub mod nft_staking {
         Ok(())
     }
 
-    // Stake NFT
     pub fn stake(ctx: Context<StakeNFT>) -> Result<()> {
         // Approve the staking operation
         approve(ctx.accounts.approve_ctx(), 1)?;
@@ -143,7 +138,6 @@ pub mod nft_staking {
         Ok(())
     }
 
-    // Unstake NFT
     pub fn unstake(ctx: Context<UnstakeNFT>) -> Result<()> {
         // Calculate the reward based on the time staked
         let reward = Clock::get()?.unix_timestamp.unsigned_abs() - ctx.accounts.stake.timestamp;

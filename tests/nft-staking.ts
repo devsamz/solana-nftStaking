@@ -17,18 +17,15 @@ import {
 } from "@solana/spl-token";
 import { expect } from "chai";
 describe("nft-staking", async () => {
-  // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  // Access the NftStaking instance from the Anchor workspace.
   const program = anchor.workspace.NftStaking as Program<NftStaking>;
   const provider = anchor.AnchorProvider.env();
 
-  // Generate a new keypair for the NFT mint and user.
   const nftMint = Keypair.generate();
   const user = Keypair.generate();
 
-  // Get the associated token account for the user.
+  // get associated token account for user
   const userTokenAccount = await getAssociatedTokenAddress(
     nftMint.publicKey,
     user.publicKey
@@ -87,9 +84,9 @@ describe("nft-staking", async () => {
     // Safe airdrop some tokens to the user
     await safeAirdrop(user.publicKey, provider.connection);
 
-    const name = "Bolu NFT";
-    const symbol = "BNFT";
-    const uri = "www.boluteefe.com";
+    const name = "Ore NFT";
+    const symbol = "ONFT";
+    const uri = "www.oreoluwa.com";
 
     // Create and mint the NFT using the program's method
     const txid = await program.methods
