@@ -386,14 +386,14 @@ impl <'info> UnstakeNFT<'info> {
         CpiContext::new(cpi_program, cpi_accounts)
     }
 
-    pub fn mint_to_ctx(&self) -> CpiContext<'_, '_, '_, 'info, MintTo<'info>> {
+        pub fn mint_to_ctx(&self) -> CpiContext<'_, '_, '_, 'info, MintTo<'info>> {
         let cpi_program = self.token_program.to_account_info();
         
-            mint: self.token_mint.to_account_info(),             // Source mint for minting reward
-            to: self.user_token_account.to_account_info(),      // Destination token account (user's reward)
-            authority: self.mint_authority.to_account_info(),   // Mint authority for reward token
-        };
+        mint: self.token_mint.to_account_info(),             // Source mint for minting reward
+        to: self.user_token_account.to_account_info(),      // Destination token account (user's reward)
+        authority: self.mint_authority.to_account_info(),   // Mint authority for reward token
 
         CpiContext::new(cpi_program, cpi_accounts)
-    }
+    };
+
 }
